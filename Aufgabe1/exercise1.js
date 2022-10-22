@@ -36,9 +36,9 @@ console.log("Aufgabenteil 3")
 
 //Arrow Function -> FunktionsName = (parameter) => return 
 // wenn gerade dann + wenn ungerade dann -
-let arrowFunc = (arr, posNeg, stepRange) => {
+let arrowFunc = (arr, ifPos, stepRange) => {
     var temp = 0
-    if(posNeg % 2 === 0){
+    if(ifPos){
         for(var i = 0; i < arr.length; i = i + stepRange){
             temp = temp + arr[i]
         }
