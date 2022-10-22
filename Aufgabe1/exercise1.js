@@ -51,8 +51,8 @@ let arrowFunc = (arr, ifPos, stepRange) => {
     return console.log(temp)
 }
 
-arrowFunc(myArray, 2, 1)
-arrowFunc(myArray, 2, 3)
+arrowFunc(myArray, true, 1)
+arrowFunc(myArray, true, 3)
 console.log("--------------------------------")
 
 //Aufgabenteil 4
