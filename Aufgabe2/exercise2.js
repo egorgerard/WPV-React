@@ -124,15 +124,13 @@ class Animal{
 
 }
 
-let wingspan = 160
+//let wingspan = 160
 
 class NewAnimal extends Animal{
     #color 
     constructor(){
         super();
         this.#color = "Green"
-
-        
     }
 
     get getNewAnimalColor(){
@@ -142,10 +140,9 @@ class NewAnimal extends Animal{
 }
 
 let animal1 = new Animal();
-
 animal1.getFullAnimal();
 
-let newAnimal1 = new NewAnimal("green");
-
-newAnimal1.getAnimalHeight;
+let newAnimal1 = new NewAnimal();
+newAnimal1.setAnimalHeight = 99
+console.log(newAnimal1.getAnimalHeight)
 
