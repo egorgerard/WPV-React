@@ -62,7 +62,7 @@ let copyObj = dog => {
     let dog2 = {...dog}
     dog2.name = "Joe"
 
-    return console.log("Old Dog: ", dog.name ,"| new Dog: ", dog2.name);
+    return console.log("Old Dog: ", dog.name, "| new Dog: ", dog2.name);
 
 }
 
