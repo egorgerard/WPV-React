@@ -1,0 +1,20 @@
+{
+  "name": "aufgabe4",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "Gerhard",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.20.1",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "crytpo-js": "^0.0.1-security",
+    "express": "^4.18.2",
+    "jsonwebtoken": "^8.5.1"
+  }
+}
