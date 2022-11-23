@@ -21,7 +21,7 @@ app.listen(port, () => {
 /*
 {
     beauftrager:"Jey",
-    isbn:"1234",
+    id:"1234",
     aufgabe:"putzen"
 }
 */
@@ -80,12 +80,12 @@ app.get('/to_do', (request, response)=>{
 app.post('/to_do', (req,res)=>{
     let newTask = req.body;
     if(newTask.beauftragter != ''
-        && (newTask.isbn.length==3 || newTask.isbn.length == 5)
+        && (newTask.id.length > 0 || newTask.id.length < 4)
         && newTask.aufgabe != ''){
             data.to_do.push({
                 beauftragter:newTask.beauftragter,
                 aufgabe:newTask.aufgabe,
-                isbn:newTask.isbn
+                id:newTask.id
             })
             res.status(200).send("New item added!");
         }else{
@@ -97,14 +97,14 @@ app.post('/to_do', (req,res)=>{
 app.put('/to_do', (req,res)=>{
     let taskToChange = req.body;
     if(taskToChange.beauftragter != ''
-    && (taskToChange.isbn.length == 3 || taskToChange.isbn.length == 5)
-    && (taskToChange.isbn_search.length == 3 || taskToChange.isbn_search.length == 5)
+    && (taskToChange.id.length > 0 || taskToChange.id.length < 4)
+    && (taskToChange.id_search.length > 0 || taskToChange.id_search.length < 4)
     && taskToChange.aufgabe != ''){
         let searchedTaskIndex = data.to_do.findIndex(
-                                    (v)=>v.isbn == taskToChange.isbn_search)
+                                    (v)=>v.id == taskToChange.id_search)
         if(searchedTaskIndex != -1){
             data.to_do[searchedTaskIndex].aufgabe = taskToChange.aufgabe;
-            data.to_do[searchedTaskIndex].isbn = taskToChange.isbn;
+            data.to_do[searchedTaskIndex].id = taskToChange.id;
             data.to_do[searchedTaskIndex].beauftragter = taskToChange.beauftragter;
             res.status(200).send("Task was updated");
         }else{
@@ -116,9 +116,9 @@ app.put('/to_do', (req,res)=>{
 })
 
 app.delete('/to_do', (req,res)=>{
-    const isbn = req.body.isbn
-    if(isbn.length == 3 || isbn.length == 5){
-        let searchedTaskIndex = data.to_do.findIndex((v)=>v.isbn == isbn)
+    const id = req.body.id
+    if(id.length == 3 || id.length == 5){
+        let searchedTaskIndex = data.to_do.findIndex((v)=>v.id == id)
         if(searchedTaskIndex != -1){
             data.to_do.splice(searchedTaskIndex,1)
             res.status(200).send("Task was deleted");
