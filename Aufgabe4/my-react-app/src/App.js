@@ -13,7 +13,7 @@ class App extends Component {
     return (
       /*<div className='App'>
         <Person name="Hans" age="49" >Rentner</Person>
-        //<Person name="Dedf" age="22"/>
+        //<Person name="Dedf" age="22"/> test 1 2 1 2 
         </div>
       */
       <div className="App">
