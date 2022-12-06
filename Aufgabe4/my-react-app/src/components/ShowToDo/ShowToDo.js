@@ -59,7 +59,7 @@ const ShowToDo = () => {
     } else {
       openTasks.push(
         <Task
-          task={task.id}
+          task={task}
           key={task.id}
           moveTask={() => moveTask(task.id)}
           deleteTask={() => deleteTask(task.id)}

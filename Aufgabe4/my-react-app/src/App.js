@@ -3,7 +3,7 @@ import "./App.css";
 import { Component } from "react";
 
 //import Person from "./components/newComponent/Person";
-//import newTask from "./components/NewTask/NewTask";
+import NewTask from "./components/NewTask/NewTask";
 import ShowToDo from "./components/ShowToDo/ShowToDo";
 import Header from "./components/Header/Header";
 //import Task from "./components/Task/Task";
@@ -19,6 +19,7 @@ class App extends Component {
       <div className="App">
         <Header />
         <ShowToDo />
+        <NewTask />
       </div>
     );
   }

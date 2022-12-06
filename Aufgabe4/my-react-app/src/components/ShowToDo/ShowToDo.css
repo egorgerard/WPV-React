@@ -2,7 +2,6 @@
     display: flex;
     justify-content: space-between;
     flex: 0 0 100%;
-    background-color: yellow;
 }
 
 .ShowToDo__Wrapper{
