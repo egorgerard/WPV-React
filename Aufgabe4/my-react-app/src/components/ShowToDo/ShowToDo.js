@@ -1,20 +1,20 @@
+import React from "react";
 import "./ShowToDo.css";
 import { useState, useEffect } from "react";
-
 import Task from "../../components/Task/Task";
 import Content from "../../components/Content/Content";
+import axios from "../../axios";
 const ShowToDo = () => {
   const [tasks, setTasks] = useState([]);
 
   useEffect(() => {
     if (tasks.length === 0) {
-      setTasks([
-        { id: 1, title: "Task 1", completed: false },
-        { id: 2, title: "Task 2", completed: true },
-        { id: 3, title: "Task 3", completed: false },
-      ]);
+      axios.get('/tasks').then((res) => {
+          setTasks(res.data);
+        }).catch((err) => {
+          console.log(err);
+        });
     }
-    /*** */
   }, []);
 
   const moveTask = (taskId) => {
@@ -27,20 +27,27 @@ const ShowToDo = () => {
 
     const tasksCopy = [...tasks];
     tasksCopy[taskIndex] = task;
-    setTasks(tasksCopy);
+
+    axios.put('/task',{...task}).then((res) => {
+        setTasks(tasksCopy);
+      }).catch((err) => {
+        console.log(err);
+      });
 
     /*** */
   };
 
   const deleteTask = (taskId) => {
-    const taskIndex = tasks.findIndex((v) => {
-      return v.id === taskId;
-    });
+    const taskIndex = tasks.findIndex((v) => {return v.id === taskId;});
     const task = { ...tasks[taskIndex] };
     const tasksCopy = [...tasks];
     tasksCopy.splice(taskIndex, 1);
-    setTasks(tasksCopy);
 
+    axios.delete(`/task/${taskId}`).then((res) => {
+        setTasks(tasksCopy);
+      }).catch((err) => {
+        console.log(err);
+      });
     /** */
   };
 

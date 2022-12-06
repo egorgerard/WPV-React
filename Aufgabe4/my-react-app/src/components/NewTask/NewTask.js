@@ -1,24 +1,25 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Content from "../Content/Content";
-import axios from "axios";
+import axios from "../../axios";
 import "./NewTask.css";
+
+import { useDispatch} from "react-redux";
+import { addTask } from "../../reducer/reducer";
 
 const NewTask = (props) => {
   const [title, setTitle] = useState("");
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const onTitleChange = (e) => {
     setTitle(e.target.value);
   };
 
   const addNewTask = () => {
-    axios
-      .post("/task", { title })
-      .then((res) => {
+    axios.post("/task", { title }).then((res) => {
         navigate("/");
-      })
-      .catch((err) => {
+      }).catch((err) => {
         console.log(err);
       });
   };
@@ -26,7 +27,7 @@ const NewTask = (props) => {
   return (
     <Content>
       <div className="NewTask">
-        <div className="NewTask_Content">
+        <div className="NewTask__Content">
           <label>
             New Task Title:
             <input type="text" value={title} onChange={onTitleChange} />

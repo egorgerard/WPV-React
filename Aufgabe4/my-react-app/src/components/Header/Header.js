@@ -9,12 +9,8 @@ const Header = () => {
         <h1>To-Do's</h1>
       </div>
       <div className="Header__Buttons">
-        <div to="/" className="Header__Button">
-          To-Do's
-        </div>
-        <div to="/add" className="Header__Button">
-          New To-Do
-        </div>
+        <Link to="/" className="Header__Button">To-Do's</Link>
+        <Link to="/add" className="Header__Button">New To-Do</Link>
       </div>
     </div>
   );
