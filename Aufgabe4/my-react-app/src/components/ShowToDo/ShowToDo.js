@@ -1,13 +1,21 @@
 import React from "react";
 import "./ShowToDo.css";
-import { useState, useEffect } from "react";
 import Task from "../../components/Task/Task";
 import Content from "../../components/Content/Content";
 import axios from "../../axios";
+
+import { useState, useEffect} from "react";
+import {useDispatch, useSelector} from "react-redux";
+import { loadTodos, deleteTaskId, changeTaskState } from "../../reducer/reducer";
+
 const ShowToDo = () => {
   const [tasks, setTasks] = useState([]);
+  //const tasks = useSelector((state)=>{return state.todos})
+  //const dispatch = useDispatch();
 
   useEffect(() => {
+    //dispatch(loadTodos());
+    
     if (tasks.length === 0) {
       axios.get('/tasks').then((res) => {
           setTasks(res.data);
@@ -15,12 +23,11 @@ const ShowToDo = () => {
           console.log(err);
         });
     }
+    
   }, []);
 
   const moveTask = (taskId) => {
-    const taskIndex = tasks.findIndex((v) => {
-      return v.id === taskId;
-    });
+    const taskIndex = tasks.findIndex((v) => {return v.id === taskId;});
 
     const task = { ...tasks[taskIndex] };
     task.completed = !task.completed;
@@ -30,6 +37,7 @@ const ShowToDo = () => {
 
     axios.put('/task',{...task}).then((res) => {
         setTasks(tasksCopy);
+        //dispatch(changeTaskState({taskId}))
       }).catch((err) => {
         console.log(err);
       });
@@ -39,16 +47,17 @@ const ShowToDo = () => {
 
   const deleteTask = (taskId) => {
     const taskIndex = tasks.findIndex((v) => {return v.id === taskId;});
-    const task = { ...tasks[taskIndex] };
+
+    //const task = { ...tasks[taskIndex] };
     const tasksCopy = [...tasks];
     tasksCopy.splice(taskIndex, 1);
 
     axios.delete(`/task/${taskId}`).then((res) => {
         setTasks(tasksCopy);
+        //dispatch(deleteTaskId({taskId}))
       }).catch((err) => {
         console.log(err);
       });
-    /** */
   };
 
   const completedTasks = [];

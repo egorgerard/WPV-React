@@ -10,18 +10,21 @@ import { addTask } from "../../reducer/reducer";
 const NewTask = (props) => {
   const [title, setTitle] = useState("");
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  //const dispatch = useDispatch();
 
   const onTitleChange = (e) => {
     setTitle(e.target.value);
   };
 
   const addNewTask = () => {
+    //await dispatch(addTask({title})).unwrap();
+    //navigate("/");
     axios.post("/task", { title }).then((res) => {
         navigate("/");
       }).catch((err) => {
         console.log(err);
       });
+    
   };
 
   return (

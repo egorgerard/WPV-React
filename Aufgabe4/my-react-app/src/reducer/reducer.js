@@ -7,20 +7,21 @@ export const deleteTaskId = createAction('todo/deleteToDoId')
 export const addTask = createAsyncThunk('todos/addToDo', async (task) =>{
     return await axios.post('/task', task)
 })
+
 export const loadTodos = createAsyncThunk('todo/loadToDos', async ()=>{
     const response = await axios.get('/tasks');
     return response.data;
 })
 
-const initial = {todos:[]}
+const initialState = {todos:[]}
 
 const todoReducer = createReducer(initialState, (builder)=>{
     builder.addCase(changeTaskState,(state, action)=>{
-        const taskIndex = state.todos.findInde((v)=>{return v.id === action.payload.taskId});
+        const taskIndex = state.todos.findIndex((v)=>{return v.id === action.payload.taskId});
 
         const task = {...state.todos[taskIndex]}
         task.completed = !task.completed;
-
+                            //...tasks
         const todosCopy = [...state.todos];
         todosCopy[taskIndex] = task;
         return{
@@ -31,7 +32,7 @@ const todoReducer = createReducer(initialState, (builder)=>{
     // Ohne Id ist im skript 
     .addCase(deleteTaskId, (state, action)=>{
         const taskIndex = state.todos.findInex((v)=>{return v.id === action.payload.taskId});
-        const todosCopy = [...tasks]
+        const todosCopy = [...state.todos];
         todosCopy.splice(taskIndex,1);
 
         return{
