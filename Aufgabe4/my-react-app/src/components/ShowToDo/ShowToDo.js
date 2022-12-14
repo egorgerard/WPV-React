@@ -10,51 +10,55 @@ import { loadTodos, deleteTaskId, changeTaskState } from "../../reducer/reducer"
 
 const ShowToDo = () => {
   const [tasks, setTasks] = useState([]);
+  //6.2
   //const tasks = useSelector((state)=>{return state.todos})
   //const dispatch = useDispatch();
 
   useEffect(() => {
+    //6.2
     //dispatch(loadTodos());
     
     if (tasks.length === 0) {
       axios.get('/tasks').then((res) => {
           setTasks(res.data);
+          console.log(res.data)
         }).catch((err) => {
           console.log(err);
         });
     }
     
   }, []);
-
-  const moveTask = (taskId) => {
+                                                      // 6.2
+  const moveTask = (taskId) => {                      // _id
     const taskIndex = tasks.findIndex((v) => {return v.id === taskId;});
 
     const task = { ...tasks[taskIndex] };
-    task.completed = !task.completed;
+    task.completed = !task.completed; //6.2 auskommentiert
 
-    const tasksCopy = [...tasks];
-    tasksCopy[taskIndex] = task;
+    const tasksCopy = [...tasks]; //6.2 auskommentiert
+    tasksCopy[taskIndex] = task; //6.2 auskommentiert
 
     axios.put('/task',{...task}).then((res) => {
         setTasks(tasksCopy);
+        //6.2
         //dispatch(changeTaskState({taskId}))
       }).catch((err) => {
         console.log(err);
       });
-
-    /*** */
   };
 
+
+
   const deleteTask = (taskId) => {
-    const taskIndex = tasks.findIndex((v) => {return v.id === taskId;});
+    const taskIndex = tasks.findIndex((v) => {return v.id === taskId;}); // 6.2 auskommentiert
 
-    //const task = { ...tasks[taskIndex] };
-    const tasksCopy = [...tasks];
-    tasksCopy.splice(taskIndex, 1);
-
+    const tasksCopy = [...tasks]; // 6.2 auskommentiert
+    tasksCopy.splice(taskIndex, 1); // 6.2 auskommentiert
+    
     axios.delete(`/task/${taskId}`).then((res) => {
-        setTasks(tasksCopy);
-        //dispatch(deleteTaskId({taskId}))
+        setTasks(tasksCopy); // 6.2 auskommentiert
+        // 6.2
+        //dispatch(deleteTaskId({taskId})) 
       }).catch((err) => {
         console.log(err);
       });
@@ -69,7 +73,7 @@ const ShowToDo = () => {
           task={task}
           key={task.id}
           moveTask={() => moveTask(task.id)}
-          delteTask={() => deleteTask(task.id)}
+          deleteTask={() => deleteTask(task.id)}
         />
       );
     } else {

@@ -17,7 +17,7 @@ const initialState = {todos:[]}
 
 const todoReducer = createReducer(initialState, (builder)=>{
     builder.addCase(changeTaskState,(state, action)=>{
-        const taskIndex = state.todos.findIndex((v)=>{return v.id === action.payload.taskId});
+        const taskIndex = state.todos.findIndex((v)=>{return v._id === action.payload.taskId});
 
         const task = {...state.todos[taskIndex]}
         task.completed = !task.completed;
@@ -31,7 +31,7 @@ const todoReducer = createReducer(initialState, (builder)=>{
     })
     // Ohne Id ist im skript 
     .addCase(deleteTaskId, (state, action)=>{
-        const taskIndex = state.todos.findInex((v)=>{return v.id === action.payload.taskId});
+        const taskIndex = state.todos.findInex((v)=>{return v._id === action.payload.taskId});
         const todosCopy = [...state.todos];
         todosCopy.splice(taskIndex,1);
 
