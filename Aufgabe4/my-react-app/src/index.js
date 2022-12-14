@@ -10,19 +10,18 @@ import { Provider } from "react-redux";
 import rootReducer from "./reducer/reducer";
 
 // 6.2
-// const store = configureStore({ reducer: rootReducer });
+const store = configureStore({ reducer: rootReducer });
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
-  // 6.2
-  //<Provider store={store}>
-  <BrowserRouter>
-    <React.StrictMode>
-      <App />
-    </React.StrictMode>
-  </BrowserRouter>
-  //</Provider>
+  <Provider store={store}>
+    <BrowserRouter>
+     <React.StrictMode>
+       <App />
+     </React.StrictMode>
+    </BrowserRouter>
+  </Provider>
 );
 
 // If you want to start measuring performance in your app, pass a function

@@ -9,15 +9,15 @@ import {useDispatch, useSelector} from "react-redux";
 import { loadTodos, deleteTaskId, changeTaskState } from "../../reducer/reducer";
 
 const ShowToDo = () => {
-  const [tasks, setTasks] = useState([]);
-  //6.2
-  //const tasks = useSelector((state)=>{return state.todos})
-  //const dispatch = useDispatch();
+  //const [tasks, setTasks] = useState([]);
+
+  const tasks = useSelector((state)=>{return state.todos})
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    //6.2
-    //dispatch(loadTodos());
-    
+    dispatch(loadTodos());
+
+    /*
     if (tasks.length === 0) {
       axios.get('/tasks').then((res) => {
           setTasks(res.data);
@@ -26,22 +26,20 @@ const ShowToDo = () => {
           console.log(err);
         });
     }
-    
+    */
   }, []);
-                                                      // 6.2
-  const moveTask = (taskId) => {                      // _id
+
+  const moveTask = (taskId) => {                     
     const taskIndex = tasks.findIndex((v) => {return v.id === taskId;});
-
     const task = { ...tasks[taskIndex] };
-    task.completed = !task.completed; //6.2 auskommentiert
-
-    const tasksCopy = [...tasks]; //6.2 auskommentiert
-    tasksCopy[taskIndex] = task; //6.2 auskommentiert
+    //task.completed = !task.completed; //6.2 auskommentiert
+    //const tasksCopy = [...tasks]; //6.2 auskommentiert
+    //tasksCopy[taskIndex] = task; //6.2 auskommentiert
 
     axios.put('/task',{...task}).then((res) => {
-        setTasks(tasksCopy);
+        //setTasks(tasksCopy);
         //6.2
-        //dispatch(changeTaskState({taskId}))
+        dispatch(changeTaskState({taskId}))
       }).catch((err) => {
         console.log(err);
       });
@@ -50,15 +48,14 @@ const ShowToDo = () => {
 
 
   const deleteTask = (taskId) => {
-    const taskIndex = tasks.findIndex((v) => {return v.id === taskId;}); // 6.2 auskommentiert
-
-    const tasksCopy = [...tasks]; // 6.2 auskommentiert
-    tasksCopy.splice(taskIndex, 1); // 6.2 auskommentiert
+    //const taskIndex = tasks.findIndex((v) => {return v.id === taskId;}); // 6.2 auskommentiert
+    //const tasksCopy = [...tasks]; // 6.2 auskommentiert
+    //tasksCopy.splice(taskIndex, 1); // 6.2 auskommentiert
     
     axios.delete(`/task/${taskId}`).then((res) => {
-        setTasks(tasksCopy); // 6.2 auskommentiert
+        //setTasks(tasksCopy); // 6.2 auskommentiert
         // 6.2
-        //dispatch(deleteTaskId({taskId})) 
+        dispatch(deleteTaskId({taskId})) 
       }).catch((err) => {
         console.log(err);
       });

@@ -10,26 +10,23 @@ import { addTask } from "../../reducer/reducer";
 const NewTask = (props) => {
   const [title, setTitle] = useState("");
   const navigate = useNavigate();
-  // 6.2
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
   const onTitleChange = (e) => {
     setTitle(e.target.value);
   };
 
-  // 6.2
-  // async vor ()
-  const addNewTask = () => {
-    // 6.2
-    // await dispatch(addTask({title})).unwrap();
-    // navigate("/");
-
+  const addNewTask = async () => {
+    await dispatch(addTask({title})).unwrap();
+    navigate("/");
+    
+    /*
     axios.post("/task", { title }).then((res) => {
         navigate("/");
       }).catch((err) => {
         console.log(err);
       });
-
+    */
   };
 
   return (
