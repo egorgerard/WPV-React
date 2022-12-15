@@ -2,12 +2,19 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 var cors = require("cors");
-//const { default: Task } = require("../Aufgabe4/my-react-app/src/components/Task/Task");
-const { isFulfilled } = require("@reduxjs/toolkit");
-const { response } = require("express");
-//const { application } = require('express');
-//const { response } = require('express');
+
+const mongoose = require("mongoose")
+const SHA256 = require("crypto-js/sha256");
+const jwt = require('jsonwebtoken')
+
 const app = express();
+
+const initDatabaseConnection = require('./dbConnection')
+initDatabaseConnection("todoNew");
+
+const Task = require('./models/task')
+
+
 
 const port = 3005;
 app.listen(port, () => {
@@ -47,11 +54,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cookieParser());
 
-                // 6.2
-        // to_do// async vor die ()
-app.get("/tasks", (request, res) => {
-  res.status(200).send(data.to_do)
-/*
+
+app.get("/tasks", async (request, response) => {
   if(request.query.title){
     let tasksTitle = [];
     for(let task of data.tasks){
@@ -59,28 +63,20 @@ app.get("/tasks", (request, res) => {
         tasksTitle.push(task);
       }
     }
-    response.status(400).send(tasksTitle)
+    response.status(200).send(tasksTitle)
   } else{
     let tasks = await Task.find();
     response.status(200).send(tasks)
   }
 
-/*
-  if (request.query.beauftragter) {
-    let task_beauftragter = [];
-    for (let task of data.to_do) {
-      if (task.beauftragter == request.query.beauftragter) {
-        task_beauftragter.push(task);
-      }
-    }
-    response.status(200).send(task_beauftragter);
-  } else {
-    response.status(200).send(data.to_do);
-  }
-*/
+  // Das war vor aufgabe 8
+  // res.status(200).send(data.to_do)
+
 });
 
 app.post("/task", (req, res) => {
+
+/*
   let newTask = req.body;
 
   data.to_do.push({
@@ -91,15 +87,16 @@ app.post("/task", (req, res) => {
 
   res.status(200).send("Task added")
   id_count++;
+*/
 
   // 6.2 Vorlesung 
-  /*
+  let newTask = req.body;
   newTask.completed = false;
   if(newTask.title != ''){
     let task = new Task(newTask);
     task.save((err)=>{
       if(err){
-        res.status(200).send("An error occurred!");
+        res.status(400).send("An error occurred!");
       } else {
         res.status(200).send("New item added!");
       }
@@ -108,10 +105,11 @@ app.post("/task", (req, res) => {
     res.status(400).send("data have the wrong format" + "or are not completed")
   }
 
-  */
 });
 
 app.put("/task", (req, res) => {
+
+  /*
   let taskToChange = req.body;
   let searchedTaskIndex = data.to_do.findIndex((v) => v.id === taskToChange.id)
 
@@ -122,11 +120,12 @@ app.put("/task", (req, res) => {
   } else{
     res.status(400).send("Task was not found")
   }
+  */
 
   // 6.2 Vorlesung
-  /*
   let taskToChange = req.body;
-  if(taskToChange.title != '' && taskToChange._id != null && taskToChange.completed != null){
+  if(taskToChange.title != '' && taskToChange._id != null 
+      && taskToChange.completed != null){
     let updatedTaskData = {
       title:taskToChange.title,
       completed:!taskToChange.completed
@@ -141,10 +140,11 @@ app.put("/task", (req, res) => {
   } else{
     res.status(400).send("data have the wrong format"+ "or are not complete")
   }
-  */
+
 });
 
 app.delete('/task/:id', (req, res) => {
+  /*
   const id = req.params.id
   try{
     if(id > 0){
@@ -161,8 +161,9 @@ app.delete('/task/:id', (req, res) => {
     }} catch(error){
 
     }
+  */
   // 6.2 Vorlesung
-  /*
+  const id = req.params.id
   try{
     Task.deleteOne({_id:id}).then(() =>{
       res.status(200).send("task was deleted");
@@ -173,5 +174,5 @@ app.delete('/task/:id', (req, res) => {
     let errorObj = {body:req.body, errorMessage:"Server error!"};
     res.status(500).send(errorObj);
   }
-  */
+
 });

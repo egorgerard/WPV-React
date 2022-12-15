@@ -17,9 +17,12 @@ const initialState = {todos:[]}
 
 const todoReducer = createReducer(initialState, (builder)=>{
     builder.addCase(changeTaskState,(state, action)=>{
-        const taskIndex = state.todos.findIndex((v)=>{return v.id === action.payload.taskId});
+        const taskIndex = state.todos.findIndex((v)=>{return v._id === action.payload.taskId});
         const task = {...state.todos[taskIndex]}
         task.completed = !task.completed;
+
+        console.log(task)
+
         const todosCopy = [...state.todos];
         todosCopy[taskIndex] = task;
         return{
@@ -29,7 +32,7 @@ const todoReducer = createReducer(initialState, (builder)=>{
     })
 
     .addCase(deleteTaskId, (state, action)=>{
-        const taskIndex = state.todos.findIndex((v)=>{return v.id === action.payload.taskId});
+        const taskIndex = state.todos.findIndex((v)=>{return v._id === action.payload.taskId});
         const todosCopy = [...state.todos];
         todosCopy.splice(taskIndex,1);
 

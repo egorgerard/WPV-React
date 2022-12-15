@@ -30,7 +30,7 @@ const ShowToDo = () => {
   }, []);
 
   const moveTask = (taskId) => {                     
-    const taskIndex = tasks.findIndex((v) => {return v.id === taskId;});
+    const taskIndex = tasks.findIndex((v) => {return v._id === taskId;});
     const task = { ...tasks[taskIndex] };
     //task.completed = !task.completed; //6.2 auskommentiert
     //const tasksCopy = [...tasks]; //6.2 auskommentiert
@@ -68,18 +68,18 @@ const ShowToDo = () => {
       completedTasks.push(
         <Task
           task={task}
-          key={task.id}
-          moveTask={() => moveTask(task.id)}
-          deleteTask={() => deleteTask(task.id)}
+          key={task._id}
+          moveTask={() => moveTask(task._id)}
+          deleteTask={() => deleteTask(task._id)}
         />
       );
     } else {
       openTasks.push(
         <Task
           task={task}
-          key={task.id}
-          moveTask={() => moveTask(task.id)}
-          deleteTask={() => deleteTask(task.id)}
+          key={task._id}
+          moveTask={() => moveTask(task._id)}
+          deleteTask={() => deleteTask(task._id)}
         />
       );
     }
